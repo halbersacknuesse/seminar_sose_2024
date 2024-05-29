@@ -62,7 +62,7 @@ draw()
 
 # Comparison of Feature based pose estimation and localization methods in dark environments
 
-> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://raw.githubusercontent.com/liaScript/docs/master/README.md)
+> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://github.com/halbersacknuesse/seminar_sose_2024/blob/master/presentation.md)
 > TODO Link
 
 TODO einfügen von 2/3 Bildern (SLAM, Roboter)
