@@ -65,14 +65,14 @@ draw()
 [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://github.com/halbersacknuesse/seminar_sose_2024/blob/master/presentation.md)
 
 <section>
-!?[SLAM_loop](assets/videoplayback.mp4#t=4,12)<!--
+!?[SLAM_loop](assets/videoplayback.mp4 "Example for SLAM[^vid_00]")<!--
 autoplay="true"
 muted="true"
 loop="true"
 -->
-
+[^vid_00]: cygot lab. "2D / 3D Dual SLAM Robot using ROS and LiDAR with Raspberry Pi". YouTube [online] https://www.youtube.com/watch?v=34n1tF5OtQU (05-30-2024)
 </section>
-[^0]: cygot lab. "2D / 3D Dual SLAM Robot using ROS and LiDAR with Raspberry Pi". YouTube [online] https://www.youtube.com/watch?v=34n1tF5OtQU (05-30-2024)
+
 
 
 ## Structure
@@ -202,18 +202,13 @@ loop="true"
 >
 >  - SIFT (Scale-Invariant Feature Transform)
 >  - PPF (Point Pair Features)
->  - DLT (Direct Linear Transformation)
->  - DLS (Direct Least Square)
 >  - SURF (Speeded Up Robust Features)
 >  - ORB (Oriented FAST and Rotated BRIEF)
->  - AKAZE (Accelerated KAZE[^2])
+>  - AKAZE (Accelerated KAZE[^*])
 >  - FAST (Feature from Accelerated Segment Test)
->  - PnP (Perspective-n-Points)
->  - ICP (Iterative Closest Point)
->  - RANSAC (Random Sample Consensus)
->  - (Human Pose Estimation)
-
-[^2]: japanese "wind"
+>
+> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://github.com/halbersacknuesse/seminar_sose_2024/blob/master/algorithms.md)
+[^*]: japanese "wind"
 
 </section>
 
@@ -323,13 +318,14 @@ Sensor and Model **Fusion**
 
 
 <section>
-!?[SLAM_loop](assets/KITTI.mp4#t=4,12)<!--
+!?[SLAM_loop](assets/KITTI.mp4 "KITTY Dataset 03, edited as videoclip[^vid_01]")<!--
 autoplay="true"
 muted="true"
 loop="true"
 -->
-
+[^vid_01]: Andreas Geiger et al. "Vision meets Robotics: The KITTI Dataset". cvlibs.net [online] https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_extract.zip (05-30-2024), edited by Fleischer
 </section>
+
 
 {{5}}
 <section>
@@ -356,67 +352,65 @@ loop="true"
 <section>
 #### Criteria/ Metrics
 
---{{1}}--
-Performance
 
-- Synthetic scenario
-- Use of identical Hardware
+> {{1}} Performance
+>
+> - Synthetic scenario
+> - Use of identical Hardware
 
---{{2}}--
-Robustness/ Accuracy
 
-- Creation of restrictive condition (fog, darkness, ...)
-- Testing the robustness against this influence
-- If necessary, fall back on other sensors/ switch the sensor system
-  - Analysis of the resulting time/calculation effort
-- Deviation between estimation and absolute position (-> must be known in the scenario)
+> {{2}} Robustness/ Accuracy
+>
+> - Creation of restrictive condition (fog, darkness, ...)
+> - Testing the robustness against this influence
+> - If necessary, fall back on other sensors/ switch the sensor system
+>   - Analysis of the resulting time/calculation effort
+> - Deviation between estimation and absolute position (-> must be known in the scenario)
 
---{{3}}--
-Simplicity of Implementation
-
-- Costs of the sensor technology
-- Complexity of the setup
-- Structure of the sensor fusion
-- Can the approaches be implemented simply and effectively in a test environment?
-- Are there any special features (specific hardware/ software) to consider?
+> {{3}} Simplicity of Implementation
+> 
+> - Costs of the sensor technology
+> - Complexity of the setup
+> - Structure of the sensor fusion
+> - Can the approaches be implemented simply and effectively in a test environment?
+> - Are there any special features (specific hardware/ software) to consider?
 
 </section>
 
 <section>
 #### Approaches
 
-- Priority: Approaches with sensor technology that does **not** rely on optical sensors
-- Should not be linked to specific hardware (e.g. NVIDIA)
-  - Use of generic sensors
-- Test scenario: synthetic
-  - High complexity of implementing different approaches in reality
-  - Better comparability
-  - Application of **different approaches/ algorithms** to synthetic scenario
+> - Priority: Approaches with sensor technology that does **not** rely on optical sensors
+> - Should not be linked to specific hardware (e.g. NVIDIA)
+>   - Use of generic sensors
+> - Test scenario: synthetic
+>   - High complexity of implementing different approaches in reality
+>   - Better comparability
+>   - Application of **different approaches/ algorithms** to synthetic scenario
 
 </section>
 
 <section>
 #### Potential problems
 
-- Procurement of different sensors (cost, time)
-- Use of the approaches to be investigated may require adaptation/ self-implementation 
-- Availability of the necessary software/ hardware not necessarily given 
-- Testing only possible with given hardware -> results may be different on other hardware
-- Testing only possible with given software -> the software may not run optimally on the test hardware; the software itself may not be optimized
-- Use of real scenarios could reduce comparability (consistency of test runs not necessarily given)
+> - Procurement of different sensors (cost, time)
+> - Use of the approaches to be investigated may require adaptation/ self-implementation 
+> - Availability of the necessary software/ hardware not necessarily given 
+> - Testing only possible with given hardware -> results may be different on other hardware
+> - Testing only possible with given software -> the software may not run optimally on the test hardware; the software itself may not be optimized
+> - Use of real scenarios could reduce comparability (consistency of test runs not necessarily given)
 
 </section>
 
 ### Procedure
 
-{{1}}
 <section>
-Selection/ creation of a test scenario
-
-- only synthetic
-- e.g. path in a Blender scene
-- As the focus is on depth data: Textures can be neglected
-- Possible test scenario is already given from a previous work
+> {{1}} Selection/ creation of a test scenario
+> 
+> - only synthetic
+> - e.g. path in a Blender scene
+> - As the focus is on depth data: Textures can be neglected
+> - Possible test scenario is already given from a previous work
 
 <section>
 ![test scene](assets/snapshot00.png "{1}{Screenshot of a possible test map}")
@@ -425,47 +419,42 @@ Selection/ creation of a test scenario
 
 </section>
 
-{{2}}
 <section>
-Selection of considered algorithms/ approaches
-
-- Restriction to approaches that can recognize general features in the data
-- Exclusion of approaches that are limited to the recognition of certain objects only 
-- Avoidance of own implementations (time, scope)
+> {{2}} Selection of considered algorithms/ approaches
+> 
+> - Restriction to approaches that can recognize general features in the data
+> - Exclusion of approaches that are limited to the recognition of certain objects only 
+> - Avoidance of own implementations (time, scope)
 
 </section>
 
-{{3}}
 <section>
-Application of selected algorithms to the data from the test scenario
-
-- Restriction to the use of depth data 
-- No use of optical sensors
+> {{3}} Application of selected algorithms to the data from the test scenario
+> 
+> - Restriction to the use of depth data 
+> - No use of optical sensors
 
 </section>
 
-{{4}}
 <section>
-Measurement of processing times for the scenario
-
-- Real-time calculation possible?
+> {{4}} Measurement of processing times for the scenario
+> 
+> - Real-time calculation possible?
 
 </section>
 
-{{5}}
 <section>
-Measuring the deviation of the estimation from the absolute position
-
-- Consideration of several measuring points within the scenario -> thus determination of the accumulation of errors
+> {{5}} Measuring the deviation of the estimation from the absolute position
+> 
+> - Consideration of several measuring points within the scenario -> thus determination of the accumulation of errors
 
 </section>
 
-{{6}}
 <section>
-Extension of the comparison by pre-processing the depth data
-
-- Flexion images
-- Bearing-Angel images
+> {{6}} Extension of the comparison by pre-processing the depth data
+> 
+> - Flexion images
+> - Bearing-Angel images
 
 </section>
 
