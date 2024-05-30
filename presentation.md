@@ -62,10 +62,18 @@ draw()
 
 # Comparison of Feature based pose estimation and localization methods in dark environments
 
-> [![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://github.com/halbersacknuesse/seminar_sose_2024/blob/master/presentation.md)
-> TODO Link
+[![LiaScript](https://raw.githubusercontent.com/LiaScript/LiaScript/master/badges/course.svg)](https://liascript.github.io/course/?https://github.com/halbersacknuesse/seminar_sose_2024/blob/master/presentation.md)
 
-TODO einfügen von 2/3 Bildern (SLAM, Roboter)
+<section>
+!?[SLAM_loop](assets/videoplayback.mp4#t=4,12)<!--
+autoplay="true"
+muted="true"
+loop="true"
+-->
+
+</section>
+[^0]: cygot lab. "2D / 3D Dual SLAM Robot using ROS and LiDAR with Raspberry Pi". YouTube [online] https://www.youtube.com/watch?v=34n1tF5OtQU (05-30-2024)
+
 
 ## Structure
 
@@ -83,11 +91,20 @@ TODO einfügen von 2/3 Bildern (SLAM, Roboter)
 
 ### What is it about?
 - Area in computer vision
-- Deals with the prediction and reconstruction of the pose[^1] of an object/subject in $ \mathbb{R}^3 $.
+- Deals with the prediction and reconstruction of the pose[^*] of an object/ subject in $ \mathbb{R}^3 $.
+<section>
+![Matchings_Features](assets/Matches.png "{1}{Matchings anhand von Features in einer Bildabfolge[^1]}")
 
-TODO einfügen von 2/3 Bildern (Sensoren, Objekterkennung)
+</section>
 
-[^1]: TODO def. "Pose"
+<section>
+![SLAM](assets/EssSlam.jpg "{2}{Das essentielle SLAM-Problem[^2]}")
+
+</section>
+
+[^*]: describes the position and orientation of an object in space.
+[^1]: Fleischer et al. "Matching von Features in zwei aufeinander folgenden Bildern mit FLANN-Alg.".
+[^2]: H. Durrant-Whyte und T. Bailey. "Simultaneous Localization and Mapping(SLAM): Part I". In IEEE Robotics & Automation Magazine 13.2 (2006), S. 99 110. doi: 10. 1109/MRA.2006.1638022.
 
 ### Importance
 - can be used:
@@ -110,10 +127,10 @@ TODO einfügen von 2/3 Bildern (Sensoren, Objekterkennung)
   <script style="display: block; background: white; width: 100%;" run-once="true" modify="false">
   
   const graphDefinition = `graph LR
-  A[1. Data Capture] --> B[2. Pre-Processing]
-      B --> C[3. Feature Extraction]
-      C --> D[4. Model Creation]
-      D --> E[5. Pose Estimation]
+    A[1. Data Capture] --> B[2. Pre-Processing]
+    B --> C[3. Feature Extraction]
+    C --> D[4. Model Creation]
+    D --> E[5. Pose Estimation]
   	E --> F[6. Action]
   	F --> A`;
   
@@ -271,11 +288,9 @@ Sensor and Model **Fusion**
 
 {{3}}
 <section>
-#### Machine Learning Approaches
+#### AI Approaches
 
-- Current sources train to recognize certain objects -> not very dynamic/ use in natural environments unsuitable for SLAM
-
-- TODO Quelle
+- not in scope
 
 </section>
 
@@ -304,7 +319,10 @@ Sensor and Model **Fusion**
 >
 >> => SLAM should be possible here
 
-- TODO Bild aus Blender-Szene einfügen
+<section>
+![SLAM](assets/blainder_screenshot.png "{2}{Screenshot from a Blender scene with a Depth sensor toolkit}")
+
+</section>
 
 </section>
 
@@ -315,16 +333,17 @@ Sensor and Model **Fusion**
 |Sensor|Robustness|Output|Complexity|Accuracy[^*]|
 |-----|-----|-----|-----|-----|
 |Radar|high, insensitive to light conditions, weather conditions|Distance + Speed|medium (requires processing)| very high|
-|ToF|medium, [^1]can be used in very poor lighting conditions, can provide accurate data even in absolute darkness, possible impairment due to weather conditions|Depth information/ Depth map|medium (requires processing)|high|
-|LiDAR|medium - high[^1]|3D-Point cloud|high (requires complex algorithms to process point clouds)|very high (can create highly accurate maps of the environment)|
-|Stereo camera|low - medium, [^2]depending on lighting conditions, texture of the scene, can be affected by poor lighting, weather conditions, |Depth information/ Depth map|high requires stereo matching, triangulation|medium - high depending on surrounding, camera specs|
-|RGB-D camera|low - medium[^2]|RGB images + Depth information (D)|medium (requires processing of color + depth information)|medium - high depending on specs of depth sensor + camera|
-|Structures Light Sensor|low [^3] + surface material|Depth information/ Depth map|high (requires complex algorithms to decode light structures)|high can create very accurate depth maps|
+|ToF|medium, [^+]can be used in very poor lighting conditions, can provide accurate data even in absolute darkness, possible impairment due to weather conditions|Depth information/ Depth map|medium (requires processing)|high|
+|LiDAR|medium - high[^+]|3D-Point cloud|high (requires complex algorithms to process point clouds)|very high (can create highly accurate maps of the environment)|
+|Stereo camera|low - medium, [^++]depending on lighting conditions, texture of the scene, can be affected by poor lighting, weather conditions, |Depth information/ Depth map|high requires stereo matching, triangulation|medium - high depending on surrounding, camera specs|
+|RGB-D camera|low - medium[^++]|RGB images + Depth information (D)|medium (requires processing of color + depth information)|medium - high depending on specs of depth sensor + camera|
+|Structures Light Sensor|low [^++] + surface material|Depth information/ Depth map|high (requires complex algorithms to decode light structures)|high can create very accurate depth maps|
 
 [^*]: Accuracy depends on the sensor
 
 - Further processing should be taken in consideration
-  - Possibly valid approach: calculation of Flexion images
+
+  - Possibly valid approach: Calculation of Flexion images
 
 </section>
 
@@ -394,7 +413,10 @@ Selection/ creation of a test scenario
 - As the focus is on depth data: Textures can be neglected
 - Possible test scenario is already given from a previous work
 
-  - TODO Bild einfügen
+<section>
+![test scene](assets/snapshot00.png "{1}{Screenshot of a possible test map}")
+
+</section>
 
 </section>
 
