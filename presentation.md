@@ -93,12 +93,12 @@ loop="true"
 - Area in computer vision
 - Deals with the prediction and reconstruction of the pose[^*] of an object/ subject in $ \mathbb{R}^3 $.
 <section>
-![Matchings_Features](assets/Matches.png "{1}{Matchings anhand von Features in einer Bildabfolge[^1]}")
+![Matchings_Features](assets/Matches.png "{1}{Matchings based on features in an image sequence[^1]}")
 
 </section>
 
 <section>
-![SLAM](assets/EssSlam.jpg "{2}{Das essentielle SLAM-Problem[^2]}")
+![SLAM](assets/EssSlam.jpg "{2}{The essentielle SLAM problem[^2]}")
 
 </section>
 
