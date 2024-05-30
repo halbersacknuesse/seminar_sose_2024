@@ -313,16 +313,21 @@ Sensor and Model **Fusion**
 
 > - Ideal scenario:
 >
->  - constant lighting conditions
+>  - Constant lighting conditions
 >  - Adequate camera/ resolution
->  - high contrast between objects/ features to be recognized
+>  - High contrast between objects/ features to be recognized
 >
 >> => SLAM should be possible here
 
-<section>
-![SLAM](assets/blainder_screenshot.png "{2}{Screenshot from a Blender scene with a Depth sensor toolkit}")
-
 </section>
+
+
+<section>
+!?[SLAM_loop](assets/KITTI.mp4#t=4,12)<!--
+autoplay="true"
+muted="true"
+loop="true"
+-->
 
 </section>
 
