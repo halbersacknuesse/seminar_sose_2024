@@ -461,6 +461,10 @@ loop="true"
 
 [^11] blainder-range-scanner. github.com [online] [URL](https://github.com/ln-12/blainder-range-scanner) (05-31-2024).
 
+[^vid_00] cygot lab. "2D / 3D Dual SLAM Robot using ROS and LiDAR with Raspberry Pi". YouTube [online] [URL](https://www.youtube.com/watch?v=34n1tF5OtQU) (05-30-2024)
+
+[^vid_01] Andreas Geiger et al. "Vision meets Robotics: The KITTI Dataset". cvlibs.net [online] [URL](https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_extract.zip) (05-30-2024), edited by Fleischer.
+
 <!--
 
 EOF
