@@ -133,8 +133,8 @@ loop="true"
   
   const graphDefinition = `graph LR
     A[1. Data Capture] --> B[2. Pre-Processing]
-    B --> C[3. Feature Extraction]
-    C --> D[4. Model Selection and Application]
+    B --> C[3. Model Selection and Application]
+    C --> D[4. Feature Extraction]
     D --> E[5. Pose Estimation]
   	E --> F[6. Action]
   	F --> A`;
@@ -186,16 +186,7 @@ loop="true"
 
 [^->]: converting color depths, image formats
 
-
-{{3}} #### Feature Extraction
-
-> - Edges
-> - Textures
-> - Colors
-> - further Features
-
-
-{{4}} #### Model Selection and Application
+{{3}} #### Model Selection and Application
 
 > - [SIFT (Scale-Invariant Feature Transform)](#10)
 > - [SURF (Speeded Up Robust Features)](#10)
@@ -203,6 +194,17 @@ loop="true"
 > - [FAST (Feature from Accelerated Segment Test)](#10)
 
 [^****]: japanese "wind"
+
+
+{{4}} #### Feature Extraction
+
+> - Edges
+> - Textures
+> - Colors
+> - further Features
+
+
+
 
 
 {{5}} #### Pose Estimation
@@ -240,6 +242,10 @@ loop="true"
 >
 >  - e.g. running into an object
 
+> - Processing speed must be high enough to handle sudden/temporary changes in the environmental situation (-> real-time capability) 
+>
+>  - Hardware and implementation must be set up accordingly
+
 > - Reliability/ Robustness must be so high that SLAM can be used even under unfavorable conditions.
 >
 >  e.g:
@@ -250,9 +256,6 @@ loop="true"
 >  - Sudden/ temporary changes in the environmental situation (obstacles, vulnerable objects)
 >  - Absence of features (e.g. textures, objects, edges, ...)
 
-> - Processing speed must be high enough to handle sudden/temporary changes in the environmental situation (-> real-time capability) 
->
->  - Hardware and implementation must be set up accordingly
 
 {{2}} #### Ideal Scenario
 Sensor and Model **Fusion**
@@ -304,7 +307,7 @@ loop="true"
 
 |Sensor|Robustness|Output|Complexity|Accuracy[^*]|
 |-----|-----|-----|-----|-----|
-|Radar[^7]|high, insensitive to light conditions, weather conditions|Distance + Speed|medium (requires processing)| very high|
+|Radar[^7]|high, insensitive to light conditions, weather conditions|Distance + Velocity|medium (requires processing)| very high|
 |ToF|medium, can be used in very poor lighting conditions, can provide accurate data even in absolute darkness, possible impairment due to weather conditions|Depth information/ Depth map|medium (requires processing)|high|
 |LiDAR[^8]|medium - high, can be used in very poor lighting conditions, can provide accurate data even in absolute darkness, possible impairment due to weather conditions|3D-Point cloud|high (requires complex algorithms to process point clouds)|very high (can create highly accurate maps of the environment)|
 |Stereo camera[^9] (only with external lighting)|low - medium, depending on lighting conditions, texture of the scene, can be affected by poor lighting, weather conditions|Depth information/ Depth map|high requires stereo matching, triangulation|medium - high depending on surrounding, camera specs|
@@ -338,7 +341,7 @@ loop="true"
 > - Testing the robustness against this influence
 > - If necessary, fall back on other sensors/ switch the sensor system
 >   - Analysis of the resulting time/calculation effort
-> - Deviation between estimation and absolute position (-> must be known in the scenario)
+> - Deviation between estimation and absolute pose (-> must be known in the scenario)
 
 > {{3}} Simplicity of Implementation
 > 
@@ -353,8 +356,11 @@ loop="true"
 
 > - Priority: Approaches with sensor technology that does **not** rely on optical sensors
 > - Should not be linked to specific hardware (e.g. NVIDIA)
+>
 >   - Use of generic sensors
+>
 > - Test scenario: synthetic
+>
 >   - High complexity of implementing different approaches in reality
 >   - Better comparability
 >   - Application of **different approaches/ algorithms** to synthetic scenario
@@ -492,7 +498,11 @@ loop="true"
 
   - Local extrema in DoGs.
   - Filtered by a contrast threshold, position determined using local spline interpolation, scale assigned based on octave and blurring factor.
+
+  <!-- style="display:none" -->
+  <div style="display:block" id="fooBar">
   - Edge-like responses filtered with an estimate of the ratio between the principal curvatures.
+  </div>
 
 - Orientation Assignment:
 
