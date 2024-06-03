@@ -96,20 +96,8 @@ loop="true"
 ### What is it about?
 - Area in computer vision
 - Deals with the prediction and reconstruction of the pose[^*] of an object/ subject in $ \mathbb{R}^3 $.
-<section>
-  <div style= "text-align: center;">
-    ![Matchings_Features](assets/Matches.png "{1}{Matchings based on features in an image sequence[^1]}")
-  </div>
 
-</section>
-
-<section>
-  <div style= "text-align: center;">
-    ![SLAM](assets/EssSlam.jpg "{2}{The essential SLAM problem[^2]}")
-  </div>
-
-</section>
-
+![Matchings_Features](assets/Matches.png "{1}{Matchings based on features in an image sequence[^1]}") ![SLAM](assets/EssSlam.jpg "{2}{The essential SLAM problem[^2]}")
 
 [^*]: describes the position and orientation of an object in space.
 [^1]: Fleischer et al. "Schriftliche Ausarbeitung zum Seminar virtuelle Realität". In 2023 Technische Universität Bergakademie Freiberg.
