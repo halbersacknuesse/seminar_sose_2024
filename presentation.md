@@ -3,7 +3,7 @@ author:   Jonas Fleischer
 
 email:    jonas.fleischer@student.tu-freiberg.de
 
-version:  0.9.1
+version:  0.9.2
 
 language: en
 
@@ -454,7 +454,7 @@ loop="true"
 
   - Consideration: nearest or next-neigbor
 
-![Toth](assets/flexion_toth_2.png "{1}{The estimated normals span an angle depending on the local shape of the measured surface.[^12]}") ![Fleischer](assets/padding_map.png "{2}{Pixelraster für Padding [^1]}")
+![Toth](assets/flexion_toth_2.png "{1}{The estimated normals span an angle depending on the local shape of the measured surface.[^12]}") ![Fleischer](assets/padding_map.png "{2}{Pixelraster für Padding [^1]}") ![Fleischer](assets/depth_image_frame_1_var_3_pad_1_flexion.png "{3}{Example of a flexion image[^1]}")
 
 
 {{2}} #### (Multi-Directional) Bearing-Angle Images
