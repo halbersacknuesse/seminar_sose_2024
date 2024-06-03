@@ -27,11 +27,10 @@ icon: assets/logo.png
 # Mentioned Algorithms
 
 1. [SIFT](#2)
-2. [PPF](#3)
-3. [SURF](#4)
-4. [ORB](#5)
-5. [AKAZE](#6)
-6. [FAST](#7)
+2. [SURF](#3)
+3. [ORB](#4)
+4. [AKAZE](#5)
+5. [FAST](#6)
 
 
 ## SIFT
@@ -47,13 +46,6 @@ SIFT[^1], [^2] is an algorithm for recognizing and describing local features in 
 
 [^2]: https://en.wikipedia.org/wiki/Scale-invariant_feature_transform
 
-
-## PPF
-
-PPF[^3], [^4] is an algorithm for recognizing point pairs in 3D point clouds. The algorithm uses a method called Keypoint Pair Feature (K-PPF) voting to perform 6D pose estimation. The K-PPF method improves the point pair feature difference and matching accuracy. Given the 3D model of an object, the method starts by extracting 3D features that relate pairs of 3D points and their normals. These features are then quantized and stored in a hash table and used to represent the 3D model for recognition. During runtime, the same features are extracted from a downsampled version of a given scene. The hash table is then queried per extracted/quantized feature and a Hough-like voting is performed to accumulate the estimated pose and position.
-
-[^3]: https://tolgabirdal.github.io/downloads/birdal-3dv-2015.pdf
-[^4]: https://www.mdpi.com/1424-8220/22/16/6289
 
 ## SURF
 

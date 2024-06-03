@@ -3,7 +3,7 @@ author:   Jonas Fleischer
 
 email:    jonas.fleischer@student.tu-freiberg.de
 
-version:  0.9.0
+version:  0.9.1
 
 language: en
 
@@ -119,7 +119,7 @@ loop="true"
 - can be used:
 
   - to determine the **pose** of **object(s)** in space[^3],[^4]
-  - to determine your **own position** in space
+  - to determine your **own position/ orientation** in space
   - for haptic interaction with objects[^5]
   - for **SLAM[^*]** in conjunction with autonomous vehicles/ robots[^1]
   - for orientation and navigation in areas where navigation with **GNSS[^**]** alone is not sufficient (-> accuracy, availability)[^6]
@@ -187,17 +187,16 @@ loop="true"
 
 {{2}} #### Pre-Processing
 
-> - Image filtering
+> - Image/ Data filtering
 >
 >  - Gauss
 >  - Kalman
 >  - ...
 > - Normalization and Formatting[^->]
-> - Flexion algorithm[^1] TODO
-> - Bearing-Angle algorithm TODO
+> - [Flexion algorithm[^1]](#10)
+> - [Bearing-Angle algorithm [^12]](#10)
 
 [^->]: converting color depths, image formats
-[^1]: Fleischer et al. "Schriftliche Ausarbeitung zum Seminar virtuelle Realität". In 2023 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/TUBAF-IFI-VR/Projektseminar22-23/blob/main/depth2flexion_py/flexion.py). (06-01-2023).
 
 
 {{3}} #### Feature Extraction
@@ -210,11 +209,10 @@ loop="true"
 
 {{4}} #### Model Selection and Application
 
-> - SIFT (Scale-Invariant Feature Transform)
-> - PPF (Point Pair Features)
-> - SURF (Speeded Up Robust Features)
-> - AKAZE (Accelerated KAZE[^****])
-> - FAST (Feature from Accelerated Segment Test)
+> - [SIFT (Scale-Invariant Feature Transform)](#10)
+> - [SURF (Speeded Up Robust Features)](#10)
+> - [AKAZE (Accelerated KAZE[^****])](#10)
+> - [FAST (Feature from Accelerated Segment Test)](#10)
 
 [^****]: japanese "wind"
 
@@ -231,6 +229,11 @@ loop="true"
 > - Global orientation/ localization
 >
 > => Navigation/ movement/ interaction/ drive command/ mapping
+
+[^12]: Toth. "Post-Processing of Depth Images and Laser Scan Data for Feature-based Pose Estimation". In 2020 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/JonasToth/depth-conversions.git) (05-30-2024).
+
+[^1]: Fleischer et al. "Schriftliche Ausarbeitung zum Seminar virtuelle Realität". In 2023 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/TUBAF-IFI-VR/Projektseminar22-23) (05-30-2024).
+
 
 
 ### Discussion
@@ -437,6 +440,161 @@ loop="true"
 > - Content
 
 
+## Appendix
+
+{{1}} #### Flexion Images
+
+- Input: depth image
+
+  - Depth image has to be in specific format (-> camera intrinsic)
+
+- Calculating Flexion:
+
+  - Angle between normals $\vec{n_1}$ and $\vec{n_2}$ of (horizontal and vertical) neighbors and diagonal neighbors
+
+  - Consideration: nearest or next-neigbor
+
+![Toth](assets/flexion_toth_2.png "{1}{The estimated normals span an angle depending on the local shape of the measured surface.[^12]}") ![Fleischer](assets/padding_map.png "{2}{Pixelraster für Padding [^1]}")
+
+
+{{2}} #### (Multi-Directional) Bearing-Angle Images
+
+- Input: depth image 
+
+  - Depth image has to be in specific format (-> camera intrinsic)
+
+- Calculation Bearing-Angle:
+
+  - Angle between two neighboring pixels ($\beta$ and $\gamma$)
+
+  - 0 $\le$ **angle** $\le$ $\pi$
+
+  - Angle represents color in resulting image
+
+- Problem:
+
+  - Rotation invariance not given for BA images
+
+  - Rotation invariance given for MDBA images
+
+  - MDBA images contain only outlines of objects
+
+![Toth](assets/Toth_MDBA.jpg "{1}{Schematic representation of the Multi-Directional Bearing-Angle image. The Multi-Directional Bearing-Angle image composes two Bearing-Angles in vertical, horizontal, diagonal and anti-diagonal direction. The maximum angle is then selected as pixel value[^12]}") ![Toth](assets/Toth_BA_scene.png "{2}{Bearing-Angle image characteristics. The Bearing-Angle image is not invariant to rotation and viewpoint changes. This property limits its applicability for automatic registration of bigger discontinues changes of the camera pose. Each depth image was converted with the diagonal (top-left-to-bottom-right direction) implementation of the Bearing-Angle formula.[^12]}") ![Toth](assets/Toth_MDBA_scene.png "{1}{Rotation invariance of Multi-Directional Bearing-Angle image. The images show the same camera positions as the Bearing-Angle and demonstrates the rotation invariance. Each edge in the geometry forms a visible white line. No other textures exist.[^12]}")
+
+[^12]: Toth. "Post-Processing of Depth Images and Laser Scan Data for Feature-based Pose Estimation". In 2020 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/JonasToth/depth-conversions.git) (05-30-2024).
+
+[^1]: Fleischer et al. "Schriftliche Ausarbeitung zum Seminar virtuelle Realität". In 2023 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/TUBAF-IFI-VR/Projektseminar22-23) (05-30-2024).
+
+
+
+{{3}} #### SIFT (Scale-Invariant Feature Transform)[^12]
+
+
+- Goal: 
+
+  - Detect keypoints invariant to scale and rotation, robust against noise, illumination changes, and affine transformations.
+
+- Process:
+
+  - Input image processed in a hierarchical pyramid of down-scaled versions (octaves).
+  - Gaussian filter applied consecutively with increased standard deviation on each octave.
+  - Difference of Gaussian (DoG) computed, forming an approximation of the Laplacian of the image.
+
+- Keypoint Candidates:
+
+  - Local extrema in DoGs.
+  - Filtered by a contrast threshold, position determined using local spline interpolation, scale assigned based on octave and blurring factor.
+  - Edge-like responses filtered with an estimate of the ratio between the principal curvatures.
+
+- Orientation Assignment:
+
+  - Brightness gradients of the local neighborhood stored in an orientation histogram.
+  - Each peak reflects a dominant direction of gradients, corresponding angle used as the orientation of the keypoint.
+
+- Descriptor Computation:
+
+  - Image gradients direction and magnitude computed for each pixel in a local environment.
+  - Weighted by a Gaussian, binned into orientation histograms.
+  - A 16×16 grid around the keypoint, stored to 4×4 histograms with 8 bins for the orientations, results in a vector of 128 elements in the descriptor.
+  - Histograms normalized to increase robustness against illumination changes.
+
+
+{{4}} #### SURF (Speeded-Up Robust Features)[^12]
+
+- Achieves similar detector and descriptor performance as SIFT but at a lower computational cost.
+- Integral Images: 
+
+  - Each pixel’s value is the sum of all pixels in the rectangle formed by the origin and the pixel itself, reducing computational complexity.
+
+- Scale Space and Extrema Detection: 
+
+  - Derived from the same principles as SIFT but simplified. Gaussian convolution approximated with a box filter related to the Hessian matrix.
+
+- Filter Scaling: 
+
+  - Instead of building a pyramid of images at different scales, the filter itself is scaled up successively.
+
+- Maxima Suppression: 
+
+  - Maxima undergo non-maximum suppression at different scales. The maximum of the Hessian determinant for the detected pixel is interpolated in image scale and space.
+
+- Orientation Assignment: 
+
+  - Can be skipped for scenarios that do not involve camera rotation. Derived from the Haar wavelets response in x- and y-direction in the local neighborhood.
+
+- Descriptor Construction: 
+
+  - Constructed from a 4×4 grid structure of sample points around the detected keypoint. The Haar wavelets response in x- and y-direction are used to derive the elements of the descriptor.
+
+
+{{5}} #### AKAZE (Accelerated KAZE)[^12]
+
+- KAZE and AKAZE: 
+
+  - Approaches similar to SIFT. KAZE applies non-linear diffusion filtering, preserving edges over higher scales.
+
+- Scale Space Analysis: 
+
+  - Diffusion of brightness is the starting point. Non-linear diffusion filtering applied with a special computational scheme, feasible to solve the diffusion in real time.
+
+- Edge Preservation:
+
+  - Unlike Gaussian blurring which blurs the whole image, non-linear diffusion preserves edges over higher scales.
+
+- Keypoint Position: 
+
+  - After non-maximum suppression, the determinant of the Hessian is computed. Interpolation of the maximum on different scales yields the position of the keypoint.
+
+- Keypoint Orientation: 
+
+  - Similar to SIFT, the dominant direction of the derivatives in the local neighborhood of the keypoint.
+
+- Descriptor (M-LDB): 
+
+  - Based on LDB (Local Difference Binary), works similar to BRIEF. Instead of comparing intensities of sampled pixel, it compares the average intensities of sampled areas around the keypoint. The orientation of the keypoint is taken into account when sampling the areas.
+
+
+{{6}} #### FAST (Features from Accelerated Segment Test)[^12]
+
+- Part of ORB (Oriented FAST and Rotated BRIEF), designed to be computationally cheaper than SIFT and SURF.
+
+- Pixel Evaluation: 
+
+  - Each pixel is evaluated by testing the brightness of 16 pixels on a circle around it. If there are enough consecutive pixels brighter or darker than the center with a certain threshold, the pixel is accepted as a corner.
+
+- Decision Tree: 
+
+  - The approach results in a decision tree. The optimal traversal of this tree is learned by observing real-world execution of the algorithm on predefined traversal.
+
+- Keypoint Detection: 
+
+  - ORB detects keypoints with FAST, filters edge results with the Harris corner detector, and assigns scale using image pyramids.
+
+- Keypoint Orientation: 
+
+  - The orientation of the keypoint is computed with the intensity centroid.
+
+
 ## Sources
 
 [^1] Fleischer et al. "Schriftliche Ausarbeitung zum Seminar virtuelle Realität". In 2023 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/TUBAF-IFI-VR/Projektseminar22-23) (05-30-2024).
@@ -460,6 +618,8 @@ loop="true"
 [^10] Gu et al. "High-Capacity Spatial Structured Light for Robust and Accurate Reconstruction". In 2023 Sensors , Vol. 23, No. 10.
 
 [^11] blainder-range-scanner. github.com [online] [URL](https://github.com/ln-12/blainder-range-scanner) (05-31-2024).
+
+[^12] Toth. "Post-Processing of Depth Images and Laser Scan Data for Feature-based Pose Estimation". In 2020 Technische Universität Bergakademie Freiberg. github.com [online] [URL](https://github.com/JonasToth/depth-conversions.git) (05-30-2024).
 
 [^vid_00] cygot lab. "2D / 3D Dual SLAM Robot using ROS and LiDAR with Raspberry Pi". YouTube [online] [URL](https://www.youtube.com/watch?v=34n1tF5OtQU) (05-30-2024)
 
