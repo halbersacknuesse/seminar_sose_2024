@@ -3,7 +3,7 @@ author:   Jonas Fleischer
 
 email:    jonas.fleischer@student.tu-freiberg.de
 
-version:  0.9.2
+version:  1.0.0
 
 language: en
 
@@ -198,13 +198,10 @@ loop="true"
 
 {{4}} #### Feature Extraction
 
-> - Edges
+> - Edges 
+> - Points
 > - Textures
 > - Colors
-> - further Features
-
-
-
 
 
 {{5}} #### Pose Estimation
