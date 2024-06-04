@@ -207,7 +207,7 @@ loop="true"
 {{5}} #### Pose Estimation
 
 > - Use of the extracted features in conjunction with feature mapping algorithm.
-> - i.e. FLANN-Algorithm
+> - e.g. FLANN-Algorithm
 
 
 {{6}} #### Action
@@ -380,6 +380,7 @@ loop="true"
 > 
 > - only synthetic
 > - e.g. path in a Blender scene
+>
 >  - blainder-plugin[^11] is able to simulate LiDAR, Sonar and ToF sensors
 >  - Using blainder-plugin to acquire simulated depth data (internal handled as **Point Cloud**)
 >
