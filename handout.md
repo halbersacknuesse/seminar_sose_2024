@@ -54,17 +54,21 @@ Sensor and Model **Fusion**
 - Testing only possible with given hardware & softwareware
 #### Procedure
 1. Selection/ creation of a test scenario
-  - only synthetic
-  - e.g. path in a Blender scene
+
+     - only synthetic
+     - e.g. path in a Blender scene
 2. Selection of considered selected models
-  - Restriction to approaches that can recognize general features in the data 
-  - Avoidance of own implementations (time, scope)
+
+     - Restriction to approaches that can recognize general features in the data 
+     - Avoidance of own implementations (time, scope)
 3. Application of selected models to the data from the test scenario
 4. Measurement of processing times for the scenario
 5. Measuring the deviation of the estimation from the absolute position
 6. Extension of the comparison by pre-processing the depth data
-  - Flexion images
-  - Bearing-Angel images
+
+     - Flexion images
+
+     - Bearing-Angel images
 
 #### Appendix
 ##### Flexion Images
